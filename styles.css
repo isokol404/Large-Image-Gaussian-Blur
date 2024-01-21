@@ -1,0 +1,144 @@
+/* Global variables */
+:root {
+    --indicator-border-color: #FFFFFF4D;
+    --indicator-top-color: #3498db;
+    --button-hover-bg-color: #0056b3;
+    --button-bg-color: #007BFF;
+    --border-color-processed-image: #CCC;
+    --text-color-image-placeholder: #666;
+    --loading-overlay-bg-color: #FFFFFFCC;
+    --body--bg-color: #F0F0F0;
+}
+
+/* General properties */
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-image:
+            linear-gradient(45deg, #eee 25%, transparent 25%, transparent 50%, #eee 50%, #eee 75%, transparent 75%, transparent),
+            linear-gradient(-45deg, #eee 25%, transparent 25%, transparent 50%, #eee 50%, #eee 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    background-color: var(--body--bg-color);
+}
+
+/* Styles for boot overlay */
+#loadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--loading-overlay-bg-color);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    z-index: 999;
+}
+
+/* Styles for the placeholder image */
+#imagePlaceholder {
+    font-size: 18px;
+    color: var(--text-color-image-placeholder);
+    margin: 10px 0;
+}
+
+/* Styles for loaded and processed images */
+#uploadedImage,
+#processedImage {
+    max-width: 100%;
+    max-height: 300px;
+    border: 2px solid #333;
+    border-radius: 5px;
+}
+
+/* Styles for inputs */
+input[type="file"],
+input[type="text"],
+input[type="number"] {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid var(--border-color-processed-image);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Styles for buttons */
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--button-bg-color);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Button hover style */
+button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+/* Styles for displaying the processed image */
+#outputCanvas {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Rotation animation */
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Styles for the processed image */
+.processed-image {
+    text-align: center;
+}
+
+.processed-image .image-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Processing indicator */
+.processing-indicator {
+    display: none;
+    width: 100px;
+    height: 100px; /* Добавлено свойство height, чтобы убедиться, что изображение квадратное */
+    border: 8px solid var(--indicator-border-color);
+    border-radius: 50%;
+    border-top-color: var(--indicator-top-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Hiding the indicator */
+.is-hidden {
+    display: none;
+}
+
+/* Setting the appearance of the container .blur-radius */
+.blur-radius {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+/* Setting the appearance of labels and entries */
+.blur-radius label,
+.blur-radius input {
+    margin: 0;
+}
+

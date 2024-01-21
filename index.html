@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <link rel="stylesheet" href="styles.css">
+    <title>Gaussian Blur App</title>
+</head>
+<body>
+<header>
+    <h1>Gaussian Blur App</h1>
+</header>
+<main>
+    <section class="image-upload">
+        <h2>Upload an Image</h2>
+        <input type="file" id="fileInput">
+        <input type="text" id="imageUrlInput" placeholder="Enter image URL">
+        <button id="loadImageByUrlButton" type="button">Load Image by URL</button>
+    </section>
+
+    <section class="uploaded-image">
+        <h3>Uploaded Image</h3>
+        <div>
+            <img id="uploadedImage" src="default-image.png" alt="Default Image", loading="lazy">
+        </div>
+    </section>
+
+    <section class="image-processing">
+        <canvas id="outputCanvas"></canvas>
+        <div class="blur-radius">
+            <label for="blurRadiusRange">Blur Radius:</label>
+            <input type="range" id="blurRadiusRange" min="0" max="100" step="1" value="0">
+            <input type="number" id="blurRadiusInput" min="0" max="100" step="1" value="0">
+        </div>
+    </section>
+
+    <div class="thread-count">
+        <label for="threadCountRange">Max Thread Count:</label>
+        <input type="range" id="threadCountRange" min="1" max="64" step="1" value="1">
+        <input type="number" id="threadCountInput" min="1" max="64" step="1" value="1">
+        <span id="threadCountLabel">Optimal amount applied: <span id="currentThreadCount">1</span></span>
+    </div>
+
+    <section class="processed-image">
+        <h3>Processed Image</h3>
+        <div class="image-container">
+            <div id="processingIndicator" class="processing-indicator"></div>
+            <img id="processedImage" src="default-image.png" alt="Processed Image">
+        </div>
+    </section>
+</main>
+<footer>
+</footer>
+<script type="module" src="dist/app.js"></script>
+</body>
+</html>
