@@ -43,6 +43,7 @@ self.onmessage = function (event): void {
     self.postMessage(buffer2);
 };
 
+// Convolution calculation function
 function applyConvolution(options: ConvolutionOptions): void {
     const {
         direction,
@@ -97,6 +98,7 @@ function applyConvolution(options: ConvolutionOptions): void {
     }
 }
 
+// Coordinate mirroring function for specifying convolution direction
 function mirrorCoordinate(coordinate: number, limit: number): number {
     if (coordinate < 0) {
         return -coordinate;
