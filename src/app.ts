@@ -17,8 +17,8 @@ const threadCountInputElement = document.getElementById('threadCountInput') as H
 let isSliderFocused = false;
 
 enum ERRORS {
-    IMAGE_PROCESSING = 'Ошибка при обработке изображения',
-    IMAGE_UPLOADING = 'Ошибка при загрузке изображения',
+    IMAGE_PROCESSING = 'Error processing image',
+    IMAGE_UPLOADING = 'Error while loading the image',
 }
 
 // Updating value and synchronizing controls
@@ -104,7 +104,7 @@ threadCountRangeElement.addEventListener('input', () => {
 
 // Input event handler for the number of threads text field
 threadCountInputElement.addEventListener('input', () => {
-    const threadCount = Math.max(1, Math.min(parseInt(threadCountInputElement.value, 10), 64));
+    const threadCount = Math.max(1, Math.min(parseInt(threadCountInputElement.value, 10), 16));
     updateControlValues(threadCountInputElement, threadCountRangeElement, threadCount);
 });
 
@@ -147,21 +147,21 @@ blurRadiusRangeElement.addEventListener('input', () => {
 
 // The change event handler for the slider that starts processing the image
 blurRadiusRangeElement.addEventListener('change', async () => {
-    showProcessingIndicator(); // Показать индикатор
+    showProcessingIndicator();
     const radius = parseInt(blurRadiusRangeElement.value, 10);
 
-    setSliderDisabled(true); // Блокировать бегунок
+    setSliderDisabled(true);
 
     try {
         let threadCount = parseInt(threadCountRangeElement.value, 10);
         updateControlValues(threadCountInputElement, threadCountRangeElement, parseInt(threadCountRangeElement.value, 10));
-        await applyGaussianBlur(radius, threadCount); // Запуск обработки
+        await applyGaussianBlur(radius, threadCount);
     } catch (error) {
 
         console.error(ERRORS.IMAGE_PROCESSING, error);
     } finally {
-        setSliderDisabled(false); // Разблокировать бегунок
-        hideProcessingIndicator(); // Скрыть индикатор после завершения обработки
+        setSliderDisabled(false);
+        hideProcessingIndicator();
     }
 });
 

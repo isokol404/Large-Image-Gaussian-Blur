@@ -15,8 +15,8 @@ const threadCountInputElement = document.getElementById('threadCountInput');
 let isSliderFocused = false;
 var ERRORS;
 (function (ERRORS) {
-    ERRORS["IMAGE_PROCESSING"] = "\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F";
-    ERRORS["IMAGE_UPLOADING"] = "\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F";
+    ERRORS["IMAGE_PROCESSING"] = "Error processing image";
+    ERRORS["IMAGE_UPLOADING"] = "Error while loading the image";
 })(ERRORS || (ERRORS = {}));
 // Updating value and synchronizing controls
 function updateControlValues(inputElement, rangeElement, value) {
@@ -93,7 +93,7 @@ threadCountRangeElement.addEventListener('input', () => {
 });
 // Input event handler for the number of threads text field
 threadCountInputElement.addEventListener('input', () => {
-    const threadCount = Math.max(1, Math.min(parseInt(threadCountInputElement.value, 10), 64));
+    const threadCount = Math.max(1, Math.min(parseInt(threadCountInputElement.value, 10), 16));
     updateControlValues(threadCountInputElement, threadCountRangeElement, threadCount);
 });
 // Input event handler for radius numeric field
@@ -129,20 +129,20 @@ blurRadiusRangeElement.addEventListener('input', () => {
 });
 // The change event handler for the slider that starts processing the image
 blurRadiusRangeElement.addEventListener('change', async () => {
-    showProcessingIndicator(); // Показать индикатор
+    showProcessingIndicator();
     const radius = parseInt(blurRadiusRangeElement.value, 10);
-    setSliderDisabled(true); // Блокировать бегунок
+    setSliderDisabled(true);
     try {
         let threadCount = parseInt(threadCountRangeElement.value, 10);
         updateControlValues(threadCountInputElement, threadCountRangeElement, parseInt(threadCountRangeElement.value, 10));
-        await applyGaussianBlur(radius, threadCount); // Запуск обработки
+        await applyGaussianBlur(radius, threadCount);
     }
     catch (error) {
         console.error(ERRORS.IMAGE_PROCESSING, error);
     }
     finally {
-        setSliderDisabled(false); // Разблокировать бегунок
-        hideProcessingIndicator(); // Скрыть индикатор после завершения обработки
+        setSliderDisabled(false);
+        hideProcessingIndicator();
     }
 });
 // Event handler for selecting a file via the <input type="file"> element

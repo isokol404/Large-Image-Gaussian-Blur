@@ -25,17 +25,18 @@ function createGaussianKernel(radius) {
 // Function for applying Gaussian blur
 async function applyGaussianBlur(radius, threadCountMax) {
     const image = new Image();
-    const optimalSegmentWidth = 300;
     image.src = uploadedImageElement.src;
     await new Promise((resolve, reject) => {
         image.onload = async function () {
             const width = image.width;
+            const optimalWorkerPixelCount = 256 * 256;
+            const optimalSegmentWidth = Math.floor(optimalWorkerPixelCount / image.height);
             const segments = Math.floor(image.width / optimalSegmentWidth);
             const threadCount = (segments <= 0) ? 1
                 : (segments < threadCountMax) ? segments
                     : threadCountMax;
             const currentThreadCountElement = document.getElementById('currentThreadCount');
-            // Обновляем текст внутри элемента с новым значением
+            // Update the text inside the element with the new value
             currentThreadCountElement.textContent = threadCount.toString();
             const height = image.height;
             const segmentWidth = threadCount > 1 ? Math.floor(width / threadCount) : width;
@@ -93,6 +94,7 @@ async function applyGaussianBlur(radius, threadCountMax) {
         };
     });
 }
+// Function of assembling an image from calculated segments
 function mergeSegmentImages(segmentImages, segmentWidth, segmentHeight, fullWidth, fullHeight, threadCount) {
     const mergedImageData = new ImageData(fullWidth, fullHeight);
     for (let i = 0; i < threadCount; i++) {
