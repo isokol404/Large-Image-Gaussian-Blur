@@ -133,7 +133,6 @@ function mergeSegmentImages(segmentImages: ImageData[], segmentWidth: number, se
     return mergedImageData;
 }
 
-
 export {
     applyGaussianBlur
 };
