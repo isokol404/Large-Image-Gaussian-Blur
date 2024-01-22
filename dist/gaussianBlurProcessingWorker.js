@@ -26,6 +26,7 @@ self.onmessage = function (event) {
     applyConvolution(verticalOptions);
     self.postMessage(buffer2);
 };
+// Convolution calculation function
 function applyConvolution(options) {
     const { direction, sourceBuffer, kernel, outputBuffer, segmentWidth, segmentHeight, xInit, yInit } = options;
     const kernelSize = kernel.length;
@@ -62,6 +63,7 @@ function applyConvolution(options) {
         }
     }
 }
+// Coordinate mirroring function for specifying convolution direction
 function mirrorCoordinate(coordinate, limit) {
     if (coordinate < 0) {
         return -coordinate;
