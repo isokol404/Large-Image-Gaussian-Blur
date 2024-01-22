@@ -145,7 +145,6 @@ blurRadiusRangeElement.addEventListener('input', () => {
     updateControlValues(blurRadiusInputElement, blurRadiusRangeElement, parseInt(blurRadiusRangeElement.value, 10));
 });
 
-
 // The change event handler for the slider that starts processing the image
 blurRadiusRangeElement.addEventListener('change', async () => {
     showProcessingIndicator();
